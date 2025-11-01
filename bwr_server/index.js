@@ -67,7 +67,7 @@ server.listen(port, function () {
 		"Welcome to BonziWORLD Revived!\n",
 		"Time to meme!\n",
 		"----------------------\n",
-		"Server listening at port 3000" + port + 3000"\n",
+console.log(`Server listening at port ${port}\n`);
 		"----------------------Logs----------------------\n"
 	);
 });
