@@ -62,7 +62,7 @@ const Ban = require('./ban.js');
 Ban.init();
  
 // Start actually listening
-server.listen(port, function (3000) {
+server.listen(port, function () {
 	console.log(
 		"Welcome to BonziWORLD Revived!\n",
 		"Time to meme!\n",
