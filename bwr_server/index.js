@@ -41,12 +41,11 @@ if (settings.express.serveStatic)
 	app.use(express.static('../build/www', {
 		extensions: ['html']
 	}));
-var server = require('http').createServer(app, console.log());
+var server = require('http').createServer(app);
   
-server.listenerCount(1);
 // Init socket.io
 var io = require('socket.io')(server);
-var port = process.env.PORT || settings.port;3000
+var port = process.env.PORT || settings.port || 3000;
 exports.io = io;
 
 // Init sanitize-html
@@ -63,19 +62,19 @@ Ban.init();
  
 // Start actually listening
 server.listen(port, function () {
-	console.log(
-		"Welcome to BonziWORLD Revived!\n",
-		"Time to meme!\n",
-		"----------------------\n",
-console.log(`Server listening at port ${port}\n`);
-		"----------------------Logs----------------------\n"
-	);
+    console.log(
+        "Welcome to BonziWORLD Revived!\n" +
+        "Time to meme!\n" +
+        "----------------------\n" +
+        `Server listening at port ${port}\n` +
+        "----------------------Logs----------------------\n"
+    );
 });
-app.options('*', cors())
+app.options('*', cors());
 app.use(express.static(__dirname + '/public', {
 	extensions: ['html']
 }));
-app.get('/api/v1/', (req, res) => res.sendStatus('hello world'))
+app.get('/api/v1/', (req, res) => res.send('hello world'))
 app.get('/api/v1/rooms/', function(req, res){
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(require('./rooms.json')));
