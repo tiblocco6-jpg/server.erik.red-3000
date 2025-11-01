@@ -46,13 +46,13 @@ var server = require('http').createServer(app, console.log());
 server.listenerCount(1);
 // Init socket.io
 var io = require('socket.io')(server);
-var port = process.env.PORT || settings.port;
+var port = process.env.PORT || settings.port;3000
 exports.io = io;
 
 // Init sanitize-html
 var sanitize = require('sanitize-html');
 
-// Init winston loggers (hi there)
+// Init winston loggers
 const Log = require('./log.js');
 Log.init();
 const log = Log.log;
@@ -62,12 +62,12 @@ const Ban = require('./ban.js');
 Ban.init();
  
 // Start actually listening
-server.listen(port, function () {
+server.listen(port, function (3000) {
 	console.log(
-		"Welcome to BonziWORLD Revived developer build 2.3.1-SNAPSHOT!\n",
+		"Welcome to BonziWORLD Revived!\n",
 		"Time to meme!\n",
 		"----------------------\n",
-		"Server listening at port " + port + "\n",
+		"Server listening at port " + port + 3000"\n",
 		"----------------------Logs----------------------\n"
 	);
 });
