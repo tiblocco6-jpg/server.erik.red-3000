@@ -1,6 +1,13 @@
 // ========================================================================
 // Server init
 // ========================================================================
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (err) => {
+    console.error('Unhandled Rejection:', err);
+});
 
 // Filesystem reading functions
 const fs = require('fs-extra');
@@ -61,15 +68,19 @@ const Ban = require('./ban.js');
 Ban.init();
  
 // Start actually listening
-server.listen(port, function () {
-    console.log(
-        "Welcome to BonziWORLD Revived!\n" +
-        "Time to meme!\n" +
-        "----------------------\n" +
-        `Server listening at port ${port}\n` +
-        "----------------------Logs----------------------\n"
-    );
-});
+try {
+    server.listen(port, function () {
+        console.log(
+            "Welcome to BonziWORLD Revived!\n" +
+            "Time to meme!\n" +
+            "----------------------\n" +
+            `Server listening at port ${port}\n` +
+            "----------------------Logs----------------------\n"
+        );
+    });
+} catch (err) {
+    console.error("Failed to start server:", err);
+}
 app.options('*', cors());
 app.use(express.static(__dirname + '/public', {
 	extensions: ['html']
