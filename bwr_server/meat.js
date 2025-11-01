@@ -126,17 +126,6 @@ var settingsSantize = {
     allowedSchemesAppliedToAttributes: ["href", "src", "cite"],
     allowProtocolRelative: true,
 };
-// Code by ItzCrazyScout and 'HOST'
-
-bot.login(TOKEN);
-
-var bot_io = require("socket.io-client");
-var socketbot = bot_io("http://localhost:80");
-bot.on("ready", () => {
-    console.info(`Logged in as ${bot.user.tag}!`);
-    bot.channels.cache.get("855556901613207553").send("Hello here from BWR!");
-});
-
 function emojify(txt) {
     return txt.replace(/:(bonzi|evil|pink|earth|globe|sad|doggis|program|swag|flip):/g, '<img src="/img/emoji/$1.png">');
 }
@@ -2021,88 +2010,6 @@ class User {
         this.room.leave(this);
     }
 }
-
-socketbot.emit("login", { name: "BonziBOT [$]", room: "default" });
-socketbot.on("reconnected", reconnected);
-
-setTimeout(function () {
-    var roombot = bot_io("http://localhost:80");
-    roombot.emit("login", { name: "BonziBOT [$]", room: "news" });
-    setTimeout(function () {
-        roombot.disconnect();
-        setTimeout(function () {
-            var roombot2 = bot_io("http://localhost:80");
-            roombot2.emit("login", { name: "BonziBOT [$]", room: "why" });
-            setTimeout(function () {
-                roombot2.disconnect();
-                setTimeout(function () {
-                    var roombot3 = bot_io("http://localhost:80");
-                    roombot3.emit("login", { name: "BonziBOT [$]", room: "area51" });
-                    setTimeout(function () {
-                        roombot3.disconnect();
-                        setTimeout(function () {
-                            var roombot4 = bot_io("http://localhost:80");
-                            roombot4.emit("login", { name: "BonziBOT [$]", room: "poland" });
-                            setTimeout(function () {
-                                roombot4.disconnect();
-                                setTimeout(function () {
-                                    var roombot5 = bot_io("http://localhost:80");
-                                    roombot5.emit("login", { name: "BonziBOT [$]", room: "frogs" });
-                                    setTimeout(function () {
-                                        roombot5.disconnect();
-                                    }, 500);
-                                }, 500);
-                            }, 500);
-                        }, 500);
-                    }, 500);
-                }, 500);
-            }, 500);
-        }, 500);
-    }, 500);
-}, 500);
-var reconnected = function () {
-    var socketbot = bot_io("http://localhost:80");
-    socketbot.emit("login", { name: "BonziBOT [$]", room: "default" });
-    socketbot.on("talk", function (data) {
-        var text = data.text;
-        if (text.startsWith("s!")) {
-            text = text.slice(2);
-            var cmd = text.split(" ")[0];
-            var oth = text.slice(cmd.length + 1);
-            if (Object.keys(commands).includes(cmd)) {
-                var command = commands[cmd](oth);
-                setTimeout(function () {
-                    socketbot.emit("talk", { text: command });
-                }, 100);
-            }
-        }
-    });
-    socketbot.on("reconnected", reconnected);
-};
-socketbot.emit("command", { list: ["name", "BonziBOT [$]"] });
-setInterval(function () {
-    socketbot.emit("talk", {
-        text:
-            '- <h3>🐵 BonziBOT</h3><div><h6>The Unofficial BonziWORLD Bot</h6><br><hr><br>Hello, I am <b>BonziBot</b> say "$help" to see all the available commands.<div>Or say "$whatsnew" to see what has been recently added or fixed.<hr><div><h6>version 2.1.4</h6>',
-    });
-}, 1800000);
-socketbot.on("talk", function (data) {
-    if (data.text == "$help") {
-        setTimeout(function () {
-            socketbot.emit("talk", {
-                text:
-                    "-- <h3>🐵 BonziBOT</h3><br><h6>version 2.1.4</h6><hr><b>commands:</b><br>$color [color]<br>$echo [text]<br>$asshole [text]<br>$kill [user]<br>$iq [user]<br>$8ball [question]<br>$zalgo [text]<br>$play [youtube video id]<br>$wtf<br>$coinflip<br>$whatsnew<br>$speed [number]<br>$pitch [number]",
-            });
-        }, 300);
-    }
-    if (data.text == "$whatsnew") {
-        setTimeout(function () {
-            socketbot.emit("talk", {
-                text:
-                    "- <h3>🐵 BonziBOT</h3><br><h6>version 2.1.4</h6><hr><div><ul><li>fixed onmouseover exploit on $play<br><li>added new commands $whatsnew, $iq<br><li>updated In-game logo<br><li>Increased echo and zalgos response time<hr>",
-            });
-        }, 300);
-    }
     if (data.text == "$pope") {
         setTimeout(function () {
             socketbot.emit("talk", { text: "No pope 4 u" });
